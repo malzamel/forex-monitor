@@ -1,0 +1,166 @@
+#:kivy 2.0
+
+<MainScreen>:
+    name: 'main'
+    signals_list: signals_list
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        # شريط العنوان
+        MDTopAppBar:
+            title: "مراقب الفوركس"
+            md_bg_color: app.theme_cls.primary_color
+            right_action_items: [["refresh", lambda x: root.refresh_signals()], ["cog", lambda x: app.root.current = 'settings']]
+            elevation: 2
+        
+        # المحتوى الرئيسي
+        ScrollView:
+            MDBoxLayout:
+                id: signals_list
+                orientation: 'vertical'
+                adaptive_height: True
+                padding: dp(10)
+                spacing: dp(10)
+        
+        # شريط التنقل السفلي
+        MDBottomAppBar:
+            MDTopAppBar:
+                title: ""
+                icon: "home"
+                type: "bottom"
+                mode: "end"
+                on_action_button: app.root.current = 'main'
+
+
+<SettingsScreen>:
+    name: 'settings'
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        # شريط العنوان
+        MDTopAppBar:
+            title: "الإعدادات"
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [["arrow-right", lambda x: app.root.current = 'main']]
+            elevation: 2
+        
+        ScrollView:
+            MDBoxLayout:
+                orientation: 'vertical'
+                adaptive_height: True
+                padding: dp(20)
+                spacing: dp(20)
+                
+                MDLabel:
+                    text: "الإعدادات"
+                    font_style: "H5"
+                    halign: "right"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                
+                MDCard:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: dp(200)
+                    padding: dp(20)
+                    spacing: dp(10)
+                    
+                    MDLabel:
+                        text: "الإشعارات"
+                        font_style: "H6"
+                        halign: "right"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                    
+                    MDLabel:
+                        text: "تفعيل الإشعارات عند ظهور إشارات جديدة"
+                        halign: "right"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                    
+                    MDLabel:
+                        text: "الاهتزاز عند الإشعار"
+                        halign: "right"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                
+                MDCard:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: dp(150)
+                    padding: dp(20)
+                    spacing: dp(10)
+                    
+                    MDLabel:
+                        text: "المراقبة"
+                        font_style: "H6"
+                        halign: "right"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                    
+                    MDLabel:
+                        text: "وقت الفحص اليومي: 00:05 UTC"
+                        halign: "right"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                
+                MDRaisedButton:
+                    text: "عن التطبيق"
+                    pos_hint: {"center_x": 0.5}
+                    on_release: app.root.current = 'about'
+
+
+<AboutScreen>:
+    name: 'about'
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        # شريط العنوان
+        MDTopAppBar:
+            title: "عن التطبيق"
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [["arrow-right", lambda x: app.root.current = 'settings']]
+            elevation: 2
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: dp(30)
+            spacing: dp(20)
+            
+            MDLabel:
+                text: "📊"
+                font_style: "H1"
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+            
+            MDLabel:
+                text: "مراقب الفوركس"
+                font_style: "H4"
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+            
+            MDLabel:
+                text: "الإصدار 1.0"
+                halign: "center"
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+            
+            MDLabel:
+                text: "تطبيق لمراقبة أزواج الفوركس باستخدام مؤشرات StochRSI و MACD"
+                halign: "center"
+                size_hint_y: None
+                height: self.texture_size[1]
+            
+            Widget:
+
+
+ScreenManager:
+    MainScreen:
+    SettingsScreen:
+    AboutScreen:
